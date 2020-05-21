@@ -930,13 +930,35 @@ debugoptVals = {}
 
 # ======================================================================================================================
 def buildTabCO(tabCO):
-    frmIntro = Frame(tabCO, bd=0)
+    frmIntro = LabelFrame(tabCO, bd=0)
     frmIntro.pack(side=TOP, padx=5, pady=0, fill='both')
     introText = Label(frmIntro, text='\nControl Pathway (CO) Keywords and Parameters\n')
-    introText.pack(side=TOP, expand='yes')
+    introText.pack(side=LEFT, expand=True)
 
-    lblfrmInputs = Frame(tabCO, bd=0)
-    lblfrmInputs.pack(side=TOP, padx=5, pady=0, expand='yes', fill='both')
+    #lblfrmInputs = Frame(tabCO, bd=0)
+    #lblfrmInputs.pack(side=TOP, padx=5, pady=0, expand='yes', fill='both')
+
+    # creates scrollable frame for inputs
+    frmInputs = Frame(tabCO, bd=0)
+    canvas = Canvas(frmInputs)
+    scrollbar = Scrollbar(frmInputs, orient='vertical', command=canvas.yview)
+    lblfrmInputs = Frame(canvas)
+
+    lblfrmInputs.bind(
+        "<Configure>",
+        lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")
+        )
+    )
+
+    canvas.create_window((0, 0), window=lblfrmInputs, anchor=NW)
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    frmInputs.pack(side=TOP, padx=5, pady=5, expand=True, fill='both')
+    canvas.pack(side=LEFT, padx=5, pady=5, fill='both', expand=True)
+    scrollbar.pack(side=RIGHT, fill='y')
+    # finish creating scrollable input frame
+
 
     frmTITLEs = LabelFrame(lblfrmInputs, bd=1, text='Titles')
     frmTITLEs.pack(side=TOP, fill='both', padx=5, pady=3)
@@ -1088,7 +1110,7 @@ def buildTabCO(tabCO):
                 multyearVals, debugoptVals)
 
     frmButtons = Frame(tabCO,bd=0)
-    frmButtons.pack(side=TOP, padx=5, pady=3, expand="yes", fill="both")
+    frmButtons.pack(side=TOP, padx=5, pady=3, fill="both")
     btn1 = Button(frmButtons, text='Write CO to control file', font=('calibri', 11, 'bold'), width=40,
                 command=(lambda: coWriter.writeControlFile(coInputs)))
     btn1.pack(side=TOP, padx=60, pady=3)
