@@ -188,81 +188,102 @@ def writeCO_DCAYCOEF(dcaycoef):
         f.write('%s\n' % dcaycoefStr)
 
 # ======================================================================================================================
-def writeCO_GASDEPDF(gasdepdf):
-    gasdepdfStr = 'CO GASDEPDF %s %s %s %s' % (gasdepdf[constCO.GASDEPDF.React.name].get(),
+def writeCO_GASDEPDF(gasdepdf, modelopt):
+    # only writes paramters of GASDEPDF is modelopt.alpha was selected
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        gasdepdfStr = 'CO GASDEPDF %s %s %s %s' % (gasdepdf[constCO.GASDEPDF.React.name].get(),
                                                gasdepdf[constCO.GASDEPDF.F_Seas2.name].get(),
                                                gasdepdf[constCO.GASDEPDF.F_Seas5.name].get(),
                                                gasdepdf[constCO.GASDEPDF.Refpoll.name].get())
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % gasdepdfStr)
+
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % gasdepdfStr)
+
 
 # ======================================================================================================================
-def writeCO_GDLANUSE(gdlanuse):
-    gdlanuseStr = 'CO GDLANUSE'
-    for iSec in range(36):
-        secID = 'Sec%d' % (iSec+1)
-        gdlanuseStr = gdlanuseStr + ' ' + gdlanuse[secID].get()
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % gdlanuseStr)
+def writeCO_GASDEPVD(gasdepvd, modelopt):
+    # only writes paramters of GASDEPDF is modelopt.alpha was selected
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        gasdepvdStr = 'CO GASDEPVD %s' % (gasdepvd['entry'].get())
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % gasdepvdStr)
 
 # ======================================================================================================================
-def writeCO_GDSEASON(gdseason):
-    gdseasonStr = 'CO GDSEASON'
-    for month in constCO.GDSEASON:
-        gdseasonStr = gdseasonStr + ' ' + gdseason[month.name].get()
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % gdseasonStr)
+def writeCO_GDLANUSE(gdlanuse, modelopt):
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        gdlanuseStr = 'CO GDLANUSE'
+        for iSec in range(36):
+            secID = 'Sec%d' % (iSec+1)
+            gdlanuseStr = gdlanuseStr + ' ' + gdlanuse[secID].get()
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % gdlanuseStr)
 
 # ======================================================================================================================
-def writeCO_LOW_WIND(low_wind):
-    low_windStr = 'CO LOW_WIND %s %s %s' % (low_wind[constCO.LOW_WIND.SVmin.name].get(),
-                                            low_wind[constCO.LOW_WIND.WSmin.name].get(),
-                                            low_wind[constCO.LOW_WIND.FRANmax.name].get())
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % low_windStr)
+def writeCO_GDSEASON(gdseason, modelopt):
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        gdseasonStr = 'CO GDSEASON'
+        for month in constCO.GDSEASON:
+            gdseasonStr = gdseasonStr + ' ' + gdseason[month.name].get()
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % gdseasonStr)
 
 # ======================================================================================================================
-def writeCO_AWMADWNW(awmadwnw):
-    awmadwnwStr = 'CO AWMADWNW'
-    if awmadwnw[constCO.AWMADWNW.AWMAUEFF.name].get():
-        awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.AWMAUEFF.name
-    if awmadwnw[constCO.AWMADWNW.AWMAUTURB.name].get():
-        awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.AWMAUTURB.name
-    if awmadwnw[constCO.AWMADWNW.STREAMLINE.name].get():
-        awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.STREAMLINE.name
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % awmadwnwStr)
+def writeCO_LOW_WIND(low_wind, modelopt):
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        low_windStr = 'CO LOW_WIND %s %s %s' % (low_wind[constCO.LOW_WIND.SVmin.name].get(),
+                                                low_wind[constCO.LOW_WIND.WSmin.name].get(),
+                                                low_wind[constCO.LOW_WIND.FRANmax.name].get())
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % low_windStr)
 
 # ======================================================================================================================
-def writeCO_ORD_DWNW(ord_dwnw):
-    ord_dwnwStr = 'CO ORD_DWNW'
-    if ord_dwnw[constCO.ORD_DWNW.ORDUEFF.name].get():
-        ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDUEFF.name
-    if ord_dwnw[constCO.ORD_DWNW.ORDTURB.name].get():
-        ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDTURB.name
-    if ord_dwnw[constCO.ORD_DWNW.ORDCAV.name].get():
-        ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDCAV.name
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % ord_dwnwStr)
+def writeCO_AWMADWNW(awmadwnw, modelopt):
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        awmadwnwStr = 'CO AWMADWNW'
+        if awmadwnw[constCO.AWMADWNW.AWMAUEFF.name].get():
+            awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.AWMAUEFF.name
+        if awmadwnw[constCO.AWMADWNW.AWMAUTURB.name].get():
+            awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.AWMAUTURB.name
+        if awmadwnw[constCO.AWMADWNW.STREAMLINE.name].get():
+            awmadwnwStr = awmadwnwStr + ' ' + constCO.AWMADWNW.STREAMLINE.name
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % awmadwnwStr)
 
 # ======================================================================================================================
-def writeCO_NO2EQUIL(no2equil):
-    no2equilStr = 'CO NO2EQUIL %s' % no2equil['entry'].get()
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % no2equilStr)
+def writeCO_ORD_DWNW(ord_dwnw, modelopt):
+    if modelopt[constCO.MODELOPT.ALPHA.name].get():
+        ord_dwnwStr = 'CO ORD_DWNW'
+        if ord_dwnw[constCO.ORD_DWNW.ORDUEFF.name].get():
+            ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDUEFF.name
+        if ord_dwnw[constCO.ORD_DWNW.ORDTURB.name].get():
+            ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDTURB.name
+        if ord_dwnw[constCO.ORD_DWNW.ORDCAV.name].get():
+            ord_dwnwStr = ord_dwnwStr + ' ' + constCO.ORD_DWNW.ORDCAV.name
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % ord_dwnwStr)
 
 # ======================================================================================================================
-def writeCO_NO2STACK(no2stack):
-    no2stackStr = 'CO NO2STACK %s' % no2stack['entry'].get()
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % no2stackStr)
+def writeCO_NO2EQUIL(no2equil, modelopt):
+    if (modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2):
+        no2equilStr = 'CO NO2EQUIL %s' % no2equil['entry'].get()
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % no2equilStr)
 
 # ======================================================================================================================
-def writeCO_ARMRATIO(armratio):
-    armratioStr = 'CO ARMRATIO %s %s' % (armratio[constCO.ARMRATIO.ARM2_Min.name].get(),
-                                         armratio[constCO.ARMRATIO.ARM2_Max.name].get())
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % armratioStr)
+def writeCO_NO2STACK(no2stack, modelopt):
+    if (modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2):
+        no2stackStr = 'CO NO2STACK %s' % no2stack['entry'].get()
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % no2stackStr)
+
+# ======================================================================================================================
+def writeCO_ARMRATIO(armratio, modelopt):
+    # only if modelopt.arm2 was selected
+    if modelopt['radbtnVar1'].get() == 3:
+        armratioStr = 'CO ARMRATIO %s %s' % (armratio[constCO.ARMRATIO.ARM2_Min.name].get(),
+                                             armratio[constCO.ARMRATIO.ARM2_Max.name].get())
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % armratioStr)
 
 # ======================================================================================================================
 def writeCO_O3SECTOR(o3sector):
@@ -413,88 +434,73 @@ def writeControlFile(coInputs, soInputs=None, reInputs=None, meInputs=None, evIn
     writeCO_DCAYCOEF(dcaycoef)
 
     gasdepdf = coInputs[7]
-    writeCO_GASDEPDF(gasdepdf)
+    writeCO_GASDEPDF(gasdepdf, modelopt)
 
-    gdlanuse = coInputs[8]
-    writeCO_GDLANUSE(gdlanuse)
+    gasdepvd = coInputs[8]
+    writeCO_GASDEPVD(gasdepvd, modelopt)
 
-    gdseason = coInputs[9]
-    writeCO_GDSEASON(gdseason)
+    gdlanuse = coInputs[9]
+    writeCO_GDLANUSE(gdlanuse, modelopt)
 
-    low_wind = coInputs[10]
-    writeCO_LOW_WIND(low_wind)
+    gdseason = coInputs[10]
+    writeCO_GDSEASON(gdseason, modelopt)
 
-    awmadwnw = coInputs[11]
-    writeCO_AWMADWNW(awmadwnw)
+    low_wind = coInputs[11]
+    writeCO_LOW_WIND(low_wind, modelopt)
 
-    ord_dwnw = coInputs[12]
-    writeCO_ORD_DWNW(ord_dwnw)
+    awmadwnw = coInputs[12]
+    writeCO_AWMADWNW(awmadwnw, modelopt)
 
-    no2equil = coInputs[13]
-    writeCO_NO2EQUIL(no2equil)
+    ord_dwnw = coInputs[13]
+    writeCO_ORD_DWNW(ord_dwnw, modelopt)
 
-    no2stack = coInputs[14]
-    writeCO_NO2STACK(no2stack)
+    no2equil = coInputs[14]
+    writeCO_NO2EQUIL(no2equil, modelopt)
 
-    armratio = coInputs[15]
-    writeCO_ARMRATIO(armratio)
+    no2stack = coInputs[15]
+    writeCO_NO2STACK(no2stack, modelopt)
 
-    o3sector = coInputs[16]
+    armratio = coInputs[16]
+    writeCO_ARMRATIO(armratio, modelopt)
+
+    o3sector = coInputs[17]
     writeCO_O3SECTOR(o3sector)
 
-    ozonefil = coInputs[17]
+    ozonefil = coInputs[18]
     writeCO_OZONEFIL(ozonefil)
 
-    ozoneval = coInputs[18]
+    ozoneval = coInputs[19]
     writeCO_OZONEVAL(ozoneval)
 
-    o3values = coInputs[19]
+    o3values = coInputs[20]
     writeCO_O3VALUES(o3values)
 
-    ozonunit = coInputs[20]
+    ozonunit = coInputs[21]
     writeCOL_OZONUNIT(ozonunit)
 
-    flagpole = coInputs[21]
+    flagpole = coInputs[22]
     writeCO_FLAGPOLE(flagpole)
 
-    runornot = coInputs[22]
+    runornot = coInputs[23]
     writeCO_RUNORNOT(runornot)
 
-    eventfil = coInputs[23]
+    eventfil = coInputs[24]
     writeCO_EVENTFIL(eventfil)
 
-    savefile= coInputs[24]
+    savefile= coInputs[25]
     writeCO_SAVEFILE(savefile)
 
-    initfile = coInputs[25]
+    initfile = coInputs[26]
     writeCO_INITFILE(initfile)
 
-    errorfil = coInputs[26]
+    errorfil = coInputs[27]
     writeCO_ERRORFIL(errorfil)
 
-    multyear = coInputs[27]
+    multyear = coInputs[28]
     writeCO_MULTYEAR(multyear)
 
-    debugopt = coInputs[28]
+    debugopt = coInputs[29]
     writeCO_DEBUGOPT(debugopt)
 
     with open('control.inp', 'a') as f:
         f.write('CO FINISHED\n')
-
-        '''
-        f.write('\n')
-        f.write('RE STARTING\n')
-        f.write('RE FINISHED\n')
-
-        f.write('\n')
-        f.write('ME STARTING\n')
-        f.write('ME FINISHED\n')
-
-        f.write('\n')
-        f.write('EV STARTING\n')
-        f.write('EV FINISHED\n')
-
-        f.write('\n')
-        f.write('OU STARTING\n')
-        f.write('OU FINISHED\n')
-        '''

@@ -1104,7 +1104,7 @@ def buildTabCO(tabCO):
     makeDEBUGOPT(frmDEBUGOPT)
 
     coInputs = (titles, modeloptVals, avertimeVals, urbanoptVals, pollutidVals, halflifeVals, dcaycoefVals,
-                gasdepdfVals, gdlanuseVals, gdseasonVals, low_windVals, awmadwnwVals, ord_dwnwVals,
+                gasdepdfVals, gasdepvdVals, gdlanuseVals, gdseasonVals, low_windVals, awmadwnwVals, ord_dwnwVals,
                 no2equilVals, no2stackVals, armratioVals, o3sectorVals, ozonefilVals, ozonevalVals, o3valuesVals,
                 ozonunitVals, flagpoleVals, runornotVals, eventfilVals, savefileVals, initfileVals, errorfilVals,
                 multyearVals, debugoptVals)

@@ -1,5 +1,9 @@
 import constantsSO as constSO
 
+import constantsCO as constCO
+import guiCO
+
+
 # ======================================================================================================================
 def writeELEVUNIT(elevunit):
     elevunitStr = 'SO ELEVUNIT %s' % elevunit[constSO.ELEVUNIT.ELEVUNIT.name].get()
@@ -407,7 +411,6 @@ def writeYBADJ(ybadj, location):
 def writeAREAVERT(areavert, location):
     areavertStr = 'SO AREAVERT'
 
-
     if (len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0) and \
             (location[constSO.LOCATION.Srctyp_t1.name].get()==constSO.SRCTYPE.AREAPOLY.name):
         str1 = '%s %s %s' % (areavertStr,
@@ -433,63 +436,65 @@ def writeAREAVERT(areavert, location):
             f.write('%s\n' % str3)
 
 # ======================================================================================================================
-def writeRBARRIER(rbarrier,location):
-    rbarrierStr = 'SO RBARRIER'
+def writeRBARRIER(rbarrier, location, coModelopt):
+    if coModelopt[constCO.MODELOPT.ALPHA.name].get()==True:
+        rbarrierStr = 'SO RBARRIER'
 
-    if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
-        str1 = '%s %s %s %s' % (rbarrierStr,
-                             location[constSO.LOCATION.SrcID_t1.name].get(),
-                             rbarrier[constSO.RBARRIER.Htwall_t1.name].get(),
-                             rbarrier[constSO.RBARRIER.DCLwall_t1.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str1)
+        if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
+            str1 = '%s %s %s %s' % (rbarrierStr,
+                                 location[constSO.LOCATION.SrcID_t1.name].get(),
+                                 rbarrier[constSO.RBARRIER.Htwall_t1.name].get(),
+                                 rbarrier[constSO.RBARRIER.DCLwall_t1.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str1)
 
-    if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
-        str2 = '%s %s %s %s' % (rbarrierStr,
-                             location[constSO.LOCATION.SrcID_t2.name].get(),
-                             rbarrier[constSO.RBARRIER.Htwall_t2.name].get(),
-                             rbarrier[constSO.RBARRIER.DCLwall_t2.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str2)
+        if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
+            str2 = '%s %s %s %s' % (rbarrierStr,
+                                 location[constSO.LOCATION.SrcID_t2.name].get(),
+                                 rbarrier[constSO.RBARRIER.Htwall_t2.name].get(),
+                                 rbarrier[constSO.RBARRIER.DCLwall_t2.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str2)
 
-    if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
-        str3 = '%s %s %s %s' % (rbarrierStr,
-                             location[constSO.LOCATION.SrcID_t3.name].get(),
-                             rbarrier[constSO.RBARRIER.Htwall_t3.name].get(),
-                             rbarrier[constSO.RBARRIER.DCLwall_t3.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str3)
+        if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
+            str3 = '%s %s %s %s' % (rbarrierStr,
+                                 location[constSO.LOCATION.SrcID_t3.name].get(),
+                                 rbarrier[constSO.RBARRIER.Htwall_t3.name].get(),
+                                 rbarrier[constSO.RBARRIER.DCLwall_t3.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str3)
 
 # ======================================================================================================================
-def writeRDEPRESS(rdepress, location):
-    rdepressStr = 'SO RDEPRESS'
+def writeRDEPRESS(rdepress, location, coModelopt):
+    if coModelopt[constCO.MODELOPT.ALPHA.name].get()==True:
+        rdepressStr = 'SO RDEPRESS'
 
-    if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
-        str1 = '%s %s %s %s %s' % (rdepressStr,
-                                   location[constSO.LOCATION.SrcID_t1.name].get(),
-                                   rdepress[constSO.RDEPRESS.Depth_t1.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wtop_t1.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wbottom_t1.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str1)
+        if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
+            str1 = '%s %s %s %s %s' % (rdepressStr,
+                                       location[constSO.LOCATION.SrcID_t1.name].get(),
+                                       rdepress[constSO.RDEPRESS.Depth_t1.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wtop_t1.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wbottom_t1.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str1)
 
-    if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
-        str2 = '%s %s %s %s %s' % (rdepressStr,
-                                   location[constSO.LOCATION.SrcID_t2.name].get(),
-                                   rdepress[constSO.RDEPRESS.Depth_t2.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wtop_t2.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wbottom_t2.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str2)
+        if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
+            str2 = '%s %s %s %s %s' % (rdepressStr,
+                                       location[constSO.LOCATION.SrcID_t2.name].get(),
+                                       rdepress[constSO.RDEPRESS.Depth_t2.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wtop_t2.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wbottom_t2.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str2)
 
-    if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
-        str3 = '%s %s %s %s %s' % (rdepressStr,
-                                   location[constSO.LOCATION.SrcID_t3.name].get(),
-                                   rdepress[constSO.RDEPRESS.Depth_t3.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wtop_t3.name].get(),
-                                   rdepress[constSO.RDEPRESS.Wbottom_t3.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str3)
+        if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
+            str3 = '%s %s %s %s %s' % (rdepressStr,
+                                       location[constSO.LOCATION.SrcID_t3.name].get(),
+                                       rdepress[constSO.RDEPRESS.Depth_t3.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wtop_t3.name].get(),
+                                       rdepress[constSO.RDEPRESS.Wbottom_t3.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str3)
 
 # ======================================================================================================================
 def writeURBANSRC(urbansrc, location):
@@ -665,66 +670,68 @@ def writePARTDENS(partdens, location):
             f.write('%s\n' % str)
 
 # ======================================================================================================================
-def writeMETHOD_2(method_2, location):
-    method_2Str = 'SO METHOD_2'
+def writeMETHOD_2(method_2, location, coModelopt):
+    if coModelopt[constCO.MODELOPT.ALPHA.name].get()==True:
+        method_2Str = 'SO METHOD_2'
 
-    if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
-        str = '%s %s %s %s' % (method_2Str,
-                               location[constSO.LOCATION.SrcID_t1.name].get(),
-                               method_2[constSO.METHOD_2.FineMassFraction_t1.name].get(),
-                               method_2[constSO.METHOD_2.Dmm_t1.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
+            str = '%s %s %s %s' % (method_2Str,
+                                   location[constSO.LOCATION.SrcID_t1.name].get(),
+                                   method_2[constSO.METHOD_2.FineMassFraction_t1.name].get(),
+                                   method_2[constSO.METHOD_2.Dmm_t1.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
-    if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
-        str = '%s %s %s %s' % (method_2Str,
-                               location[constSO.LOCATION.SrcID_t2.name].get(),
-                               method_2[constSO.METHOD_2.FineMassFraction_t2.name].get(),
-                               method_2[constSO.METHOD_2.Dmm_t2.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
+            str = '%s %s %s %s' % (method_2Str,
+                                   location[constSO.LOCATION.SrcID_t2.name].get(),
+                                   method_2[constSO.METHOD_2.FineMassFraction_t2.name].get(),
+                                   method_2[constSO.METHOD_2.Dmm_t2.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
-    if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
-        str = '%s %s %s %s' % (method_2Str,
-                               location[constSO.LOCATION.SrcID_t3.name].get(),
-                               method_2[constSO.METHOD_2.FineMassFraction_t3.name].get(),
-                               method_2[constSO.METHOD_2.Dmm_t3.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
+            str = '%s %s %s %s' % (method_2Str,
+                                   location[constSO.LOCATION.SrcID_t3.name].get(),
+                                   method_2[constSO.METHOD_2.FineMassFraction_t3.name].get(),
+                                   method_2[constSO.METHOD_2.Dmm_t3.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
 # ======================================================================================================================
-def writeGASDEPOS(gasdepos, location):
-    gasdeposStr = 'SO GASDEPOS'
+def writeGASDEPOS(gasdepos, location, coModelopt):
+    if coModelopt[constCO.MODELOPT.ALPHA.name].get()==True:
+        gasdeposStr = 'SO GASDEPOS'
 
-    if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
-        str = '%s %s %s %s %s %s' % (gasdeposStr,
-                                     location[constSO.LOCATION.SrcID_t1.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Da_t1.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Dw_t1.name].get(),
-                                     gasdepos[constSO.GASDEPOS.rcl_t1.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Henry_t1.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t1.name].get()) > 0:
+            str = '%s %s %s %s %s %s' % (gasdeposStr,
+                                         location[constSO.LOCATION.SrcID_t1.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Da_t1.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Dw_t1.name].get(),
+                                         gasdepos[constSO.GASDEPOS.rcl_t1.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Henry_t1.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
-    if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
-        str = '%s %s %s %s %s %s' % (gasdeposStr,
-                                     location[constSO.LOCATION.SrcID_t2.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Da_t2.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Dw_t2.name].get(),
-                                     gasdepos[constSO.GASDEPOS.rcl_t2.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Henry_t2.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t2.name].get()) > 0:
+            str = '%s %s %s %s %s %s' % (gasdeposStr,
+                                         location[constSO.LOCATION.SrcID_t2.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Da_t2.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Dw_t2.name].get(),
+                                         gasdepos[constSO.GASDEPOS.rcl_t2.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Henry_t2.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
-    if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
-        str = '%s %s %s %s %s %s' % (gasdeposStr,
-                                     location[constSO.LOCATION.SrcID_t3.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Da_t3.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Dw_t3.name].get(),
-                                     gasdepos[constSO.GASDEPOS.rcl_t3.name].get(),
-                                     gasdepos[constSO.GASDEPOS.Henry_t3.name].get())
-        with open('control.inp', 'a') as f:
-            f.write('%s\n' % str)
+        if len(location[constSO.LOCATION.SrcID_t3.name].get()) > 0:
+            str = '%s %s %s %s %s %s' % (gasdeposStr,
+                                         location[constSO.LOCATION.SrcID_t3.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Da_t3.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Dw_t3.name].get(),
+                                         gasdepos[constSO.GASDEPOS.rcl_t3.name].get(),
+                                         gasdepos[constSO.GASDEPOS.Henry_t3.name].get())
+            with open('control.inp', 'a') as f:
+                f.write('%s\n' % str)
 
 # ======================================================================================================================
 def writeNO2RATIO(no2ratio, location):
@@ -752,15 +759,16 @@ def writeNO2RATIO(no2ratio, location):
             f.write('%s\n' % str)
 
 # ======================================================================================================================
-def writeBGSECTOR(bgsector):
-    bgsectorStr = 'SO BGSECTOR %s %s %s %s %s %s' % (bgsector[constSO.BGSECTOR.StartSect1.name].get(),
-                                                     bgsector[constSO.BGSECTOR.StartSect2.name].get(),
-                                                     bgsector[constSO.BGSECTOR.StartSect3.name].get(),
-                                                     bgsector[constSO.BGSECTOR.StartSect4.name].get(),
-                                                     bgsector[constSO.BGSECTOR.StartSect5.name].get(),
-                                                     bgsector[constSO.BGSECTOR.StartSect6.name].get())
-    with open('control.inp', 'a') as f:
-        f.write('%s\n' % bgsectorStr)
+def writeBGSECTOR(bgsector, validBACKGRND):
+    if validBACKGRND:
+        bgsectorStr = 'SO BGSECTOR %s %s %s %s %s %s' % (bgsector[constSO.BGSECTOR.StartSect1.name].get(),
+                                                         bgsector[constSO.BGSECTOR.StartSect2.name].get(),
+                                                         bgsector[constSO.BGSECTOR.StartSect3.name].get(),
+                                                         bgsector[constSO.BGSECTOR.StartSect4.name].get(),
+                                                         bgsector[constSO.BGSECTOR.StartSect5.name].get(),
+                                                         bgsector[constSO.BGSECTOR.StartSect6.name].get())
+        with open('control.inp', 'a') as f:
+            f.write('%s\n' % bgsectorStr)
 
 # ======================================================================================================================
 def writeHOUREMIS(houremis, location):
@@ -802,6 +810,8 @@ def writeBACKGRND(backgrnd):
     if valid:
         with open('control.inp', 'a') as f:
             f.write('%s\n' % backgrndStr)
+
+    return valid
 
 # ======================================================================================================================
 def writeBACKUNIT(backunit):
@@ -913,10 +923,10 @@ def writeControlFile(soInputs):
     writeAREAVERT(areavert, location)
 
     rbarrier = soInputs[9]
-    writeRBARRIER(rbarrier,location)
+    writeRBARRIER(rbarrier,location, guiCO.modeloptVals)
 
     rdepress = soInputs[10]
-    writeRDEPRESS(rdepress, location)
+    writeRDEPRESS(rdepress, location, guiCO.modeloptVals)
 
     urbansrc = soInputs[11]
     writeURBANSRC(urbansrc, location)
@@ -946,10 +956,10 @@ def writeControlFile(soInputs):
     writePARTDENS(partdens, location)
 
     method_2 = soInputs[20]
-    writeMETHOD_2(method_2, location)
+    writeMETHOD_2(method_2, location, guiCO.modeloptVals)
 
     gasdepos = soInputs[21]
-    writeGASDEPOS(gasdepos, location)
+    writeGASDEPOS(gasdepos, location, guiCO.modeloptVals)
 
     no2ratio = soInputs[22]
     writeNO2RATIO(no2ratio, location)
@@ -957,11 +967,11 @@ def writeControlFile(soInputs):
     houremis = soInputs[23]
     writeHOUREMIS(houremis, location)
 
-    bgsector = soInputs[24]
-    writeBGSECTOR(bgsector)
-
     backgrnd = soInputs[25]
-    writeBACKGRND(backgrnd)
+    validBACKGRND = writeBACKGRND(backgrnd)
+
+    bgsector = soInputs[24]
+    writeBGSECTOR(bgsector, validBACKGRND)
 
     backunit = soInputs[26]
     writeBACKUNIT(backunit)
