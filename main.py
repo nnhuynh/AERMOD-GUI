@@ -39,7 +39,7 @@ if __name__=='__main__':
     note.add(tabEV, text="Event Pathway")
     note.add(tabOU, text="Output Options")
 
-    note.pack()
+    note.pack(fill='both', expand=True)
     root.mainloop()
 
     print('yay')
