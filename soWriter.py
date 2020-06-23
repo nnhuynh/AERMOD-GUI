@@ -890,6 +890,13 @@ def writeSRCGROUP(srcgroup, location):
         with open('control.inp', 'a') as f:
             f.write('%s\n' % srcgroupStr)
 
+def writePSDGROUP_SRCGROUP(psdgroup, srcgroup, location, coModelopt):
+    if coModelopt[constCO.MODELOPT.PSDCREDIT.name].get() == True:
+        writePSDGROUP(psdgroup, location)
+    else:
+        writeSRCGROUP(srcgroup, location)
+
+
 # ======================================================================================================================
 def writeControlFile(soInputs):
     with open('control.inp', 'a') as f:
@@ -900,6 +907,9 @@ def writeControlFile(soInputs):
 
     location = soInputs[1]
     writeLOCAION(location)
+
+    rlemconv = soInputs[14]
+    writeRLEMCONV(rlemconv)
 
     srcparam = soInputs[2]
     writeSRCPARAM(srcparam, location)
@@ -937,8 +947,10 @@ def writeControlFile(soInputs):
     emisunit = soInputs[13]
     writeEMISUNIT(emisunit)
 
+    '''
     rlemconv = soInputs[14]
     writeRLEMCONV(rlemconv)
+    '''
 
     concunit = soInputs[15]
     writeCONCUNIT(concunit)
@@ -982,11 +994,16 @@ def writeControlFile(soInputs):
     olmgroup = soInputs[28]
     writeOLMGROUP(olmgroup, location)
 
+    '''
     psdgroup = soInputs[29]
     writePSDGROUP(psdgroup, location)
 
     srcgroup = soInputs[30]
     writeSRCGROUP(srcgroup, location)
+    '''
+    psdgroup = soInputs[29]
+    srcgroup = soInputs[30]
+    writePSDGROUP_SRCGROUP(psdgroup, srcgroup, location, guiCO.modeloptVals)
 
     with open('control.inp', 'a') as f:
         f.write('SO FINISHED\n')

@@ -165,7 +165,6 @@ def makeLOCATION(frm):
     entZs2_t3 = Entry(frmZs2_t3, width=50)
     entZs2_t3.pack(side=LEFT, padx=3, pady=3)
 
-
     locationVals[constSO.LOCATION.SrcID_t1.name] = entSrcID_t1
     locationVals[constSO.LOCATION.Srctyp_t1.name] = var_t1
     locationVals[constSO.LOCATION.Xs_t1.name] = entXs_t1
@@ -188,6 +187,10 @@ def makeLOCATION(frm):
     locationVals[constSO.LOCATION.Xs2_t3.name] = entXs2_t3
     locationVals[constSO.LOCATION.Ys2_t3.name] = entYs2_t3
     locationVals[constSO.LOCATION.Zs2_t3.name] = entZs2_t3
+
+    frmRLEMCONV = Frame(frm)
+    frmRLEMCONV.grid(row=5, column=0, padx=0, pady=0)
+    makeRLEMCONV(frmRLEMCONV)
 
 # ======================================================================================================================
 def makeSRCPARAM(frm):
@@ -1856,9 +1859,11 @@ def buildTabSO(tabSO):
     frmEMISUNIT.pack(side=TOP, anchor=W, padx=5, pady=5, expand='yes', fill='both')
     makeEMISUNIT(frmEMISUNIT)
 
+    '''
     frmRLEMCONV = LabelFrame(scrollFrmInputs, bd=1, text='RLEMCONV')
     frmRLEMCONV.pack(side=TOP, anchor=W, padx=5, pady=5, expand='yes', fill='both')
     makeRLEMCONV(frmRLEMCONV)
+    '''
 
     frmCONCUNIT = LabelFrame(scrollFrmInputs, bd=1, text='CONCUNIT')
     frmCONCUNIT.pack(side=TOP, anchor=W, padx=5, pady=5, expand='yes', fill='both')
