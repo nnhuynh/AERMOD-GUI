@@ -264,16 +264,18 @@ def writeCO_ORD_DWNW(ord_dwnw, modelopt):
 
 # ======================================================================================================================
 def writeCO_NO2EQUIL(no2equil, modelopt):
-        if (modelopt[constCO.MODELOPT.ALPHA.name].get()) and \
-                ((modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2)):
+        if (modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2):
+        #if (modelopt[constCO.MODELOPT.ALPHA.name].get()) and \
+        #        ((modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2)):
             no2equilStr = 'CO NO2EQUIL %s' % no2equil['entry'].get()
             with open('control.inp', 'a') as f:
                 f.write('%s\n' % no2equilStr)
 
 # ======================================================================================================================
 def writeCO_NO2STACK(no2stack, modelopt):
-    if (modelopt[constCO.MODELOPT.ALPHA.name].get()) and \
-            ((modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2)):
+    if (modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2):
+    #if (modelopt[constCO.MODELOPT.ALPHA.name].get()) and \
+    #        ((modelopt['radbtnVar1'].get() == 1) or (modelopt['radbtnVar1'].get() == 2)):
         no2stackStr = 'CO NO2STACK %s' % no2stack['entry'].get()
         with open('control.inp', 'a') as f:
             f.write('%s\n' % no2stackStr)
